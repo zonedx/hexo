@@ -300,8 +300,8 @@
       
         
           
-            <p>##Git is a version control system.</p>
-<p>##Git is free software.</p>
+            <blockquote>
+<h2 id="Git-is-a-version-control-system"><a href="#Git-is-a-version-control-system" class="headerlink" title="Git is a version control system."></a>Git is a version control system.</h2><h2 id="Git-is-free-software"><a href="#Git-is-free-software" class="headerlink" title="Git is free software."></a>Git is free software.</h2></blockquote>
 <p>mark:<br>git init 把当前目录变成可管理的仓库<br>git add <file>  可重复使用 添加多个文件<br>git commit -m “xxx” 提交<br>git status  查看仓库当前状态<br>git diff 查看文件具体修改了什么内容</file></p>
 <p>git log  查看历史记录<br>git log –pretty=oneline<br>git reset –hard head^ 退回上一个版本<br>git reset –hard 3628164..(commit id)  退回未来版本<br>git reflog  记录每一次命令<br>git diff HEAD – readme.txt  可查看工作去和版本库里面最新版本的区别<br>git checkout – readme.txt  把readme.txt文件在工作区的修改全部撤销（回到最近一次git commit<br>或git add时的状态）<br>git reset HEAD file 把暂存区的修改撤销掉，重新放回工作区</p>
 <p>ssh-keygen -t rsa -C”<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“  创建SSH key<br>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:[帐户名]/[仓库名].git  关联github远程库<br>如果创建远程仓库的时候 自动创建了README文件，那么推送的时候会报错  需要先合并：<br>git pull –rebase origin master<br>git push origin master  把当前分支master推送到远程</p>
