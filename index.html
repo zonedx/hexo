@@ -229,6 +229,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/浅谈java泛型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zonedx的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/24/浅谈java泛型/" itemprop="url">浅谈java泛型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T17:15:43+08:00">
+                2018-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前面我们说到了集合，但是集合有个缺点——把一个对象“丢进”集合里后，集合就会“忘记”这个对象的数据类型，当再次取出该对象时，该对象的编译类型就变成了Object类型。但这样会带来如下两个问题：</p>
+</blockquote>
+<p>1、集合对元素类型没有任何限制，可能把不同元素对象放进去，将会引发异常。</p>
+<p>2、取元素后要进行强制类型转换，可能引发ClassCastException异常。</p>
+<blockquote>
+<h2 id="什么是java泛型？"><a href="#什么是java泛型？" class="headerlink" title="什么是java泛型？"></a>什么是java泛型？</h2><p>泛型是Java SE 1.5的新特性，<strong>泛型的本质是参数化类型</strong>，主要目的是建立具有类型的安全的集合框架。</p>
+<h2 id="泛型的定义与使用"><a href="#泛型的定义与使用" class="headerlink" title="泛型的定义与使用"></a>泛型的定义与使用</h2><h3 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h3><p>(此处用一个完整例子来展示)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在实例化泛型类时，必须指定T的具体类型  </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="comment">//成员变量类型T均由外部指定  </span></span><br><span class="line">    <span class="keyword">private</span> T name;  </span><br><span class="line">    <span class="keyword">private</span> T age;  </span><br><span class="line">    <span class="keyword">private</span> T sex;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(T name, T age, T sex)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.name = name;  </span><br><span class="line">        <span class="keyword">this</span>.age = age;  </span><br><span class="line">        <span class="keyword">this</span>.sex = sex;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> +  </span><br><span class="line">                <span class="string">"name="</span> + name +  </span><br><span class="line">                <span class="string">", age="</span> + age +  </span><br><span class="line">                <span class="string">", sex="</span> + sex +  </span><br><span class="line">                <span class="string">'&#125;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//若不传入泛型参数类型，参数可以为任意类型，此时name为String，age为int，sex为String  </span></span><br><span class="line">        Person p = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">20</span>, <span class="string">"男"</span>);  </span><br><span class="line">        <span class="comment">//此时name为String，age为double，sex为boolean  </span></span><br><span class="line">        Person p2 = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">21.5</span>, <span class="keyword">false</span>);  </span><br><span class="line">        <span class="comment">//指定T类型为String后，此时若传入参数为("王五", 22, "男")将发生编译错误，age也必须为String类型  </span></span><br><span class="line">        Person&lt;String&gt; p3 = <span class="keyword">new</span> Person&lt;&gt;(<span class="string">"王五"</span>, <span class="string">"22"</span>, <span class="string">"男"</span>);  </span><br><span class="line">        System.out.println(p);  </span><br><span class="line">        System.out.println(p2);  </span><br><span class="line">        System.out.println(p3);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>运行结果，注意看参数类型：<br><img src="/2018/05/24/浅谈java泛型/result1.jpg" alt="id"></p>
+<blockquote>
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><p>以下为JDK5.0集合框架中Map接口定义的一部分：</p>
+</blockquote>
+<p>publicinterface Map&lt;K, V&gt; {</p>
+<p>publicvoid put(K key, V value);</p>
+<p>public Vget(K key);</p>
+<p>}</p>
+<p>后文将以Map接口的实现类来进行讲述</p>
+<blockquote>
+<h3 id="集合泛型类"><a href="#集合泛型类" class="headerlink" title="集合泛型类"></a>集合泛型类</h3><p>注意:当声明或实例化一个泛型对象时，必须指定类型参数的值</p>
+</blockquote>
+<p>如：Map&lt;String, String&gt; map = newHashMap&lt;String, String&gt;();</p>
+<p>参数类型可以是：<strong>基本数据类型的装箱类、引用类型</strong></p>
+<p>对于常见的泛型模式，推荐的名称是：</p>
+<p>K ——键，比如映射的键。</p>
+<p>V ——值，比如 List 和 Set 的内容，或者 Map 中的值。</p>
+<p>E ——异常类。</p>
+<p>T ——泛型。</p>
+<p>示例如下：（学生类是个基本的JavaBean，有name.age.sex属性以及构造方法，代码省略）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">genericTest</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    Map&lt;String,Student&gt; student=<span class="keyword">new</span> HashMap&lt;&gt;();  </span><br><span class="line">    Student stu1=<span class="keyword">new</span> Student(<span class="string">"赵一"</span>,<span class="number">23</span>,<span class="string">"男"</span>);  </span><br><span class="line">    Student stu2=<span class="keyword">new</span> Student(<span class="string">"小芳"</span>,<span class="number">21</span>,<span class="string">"女"</span>);  </span><br><span class="line">    student.put(<span class="string">"坏学生"</span>,stu1);  </span><br><span class="line">    student.put(<span class="string">"好学生"</span>,stu2);  </span><br><span class="line">    Iterator it=student.entrySet().iterator();  </span><br><span class="line">    <span class="keyword">while</span>(it.hasNext())&#123;  </span><br><span class="line">        Map.Entry entry= (Map.Entry) it.next();  </span><br><span class="line">        Object key=entry.getKey();  </span><br><span class="line">        Student s= (Student) entry.getValue();  </span><br><span class="line">        System.out.println(key+<span class="string">"----"</span>+s.getName()+<span class="string">"----他/她的年纪是："</span>+s.getAge());  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="/2018/05/24/浅谈java泛型/result2.jpg" alt="id"></p>
+<blockquote>
+<h2 id="泛型通配符"><a href="#泛型通配符" class="headerlink" title="泛型通配符"></a>泛型通配符</h2><p>首先做个小测试：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; slist=<span class="keyword">new</span> ArrayList&lt;&gt;();  </span><br><span class="line">List&lt;Integer&gt; ilist=<span class="keyword">new</span> ArrayList&lt;&gt;();  </span><br><span class="line">System.out.println(slist.getClass()+<span class="string">"?="</span>+ilist.getClass());</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>结果：<br><img src="/2018/05/24/浅谈java泛型/result3.jpg" alt="id"><br>由此我们可以知道 List<string>和List<integer>的类型相同，<strong>即泛型类型在逻辑上可以看做是多个不同的类型，实际上都是相同的基本类型。</strong><br>因此，形如Generic<animal>和Generic<dog>不是具有父子关系的泛型类型，所以我们需要一个逻辑上可以表示同时是Generic<animal>和Generic<dog>父类的引用类型，通配符由此而来。<br>类型通配符一般是用？代替具体的类型实参。当具体类型不确定时，可用？通配符来表示位置类型，如：<br>Class&lt;?&gt; classType=Class.forName(“java.lang.String”);</dog></animal></dog></animal></integer></string></p>
+<blockquote>
+<h3 id="通配符上下边界"><a href="#通配符上下边界" class="headerlink" title="通配符上下边界"></a>通配符上下边界</h3><p>List&lt;? extends Number&gt;list;表示通配符的上边界，即？只能被赋值为Number或其子类型。<br>List&lt;? super Integer&gt;list;表示通配符的下边界，即？只能被赋值为Integer或其父类型。</p>
+<h3 id="关于和-lt-gt"><a href="#关于和-lt-gt" class="headerlink" title="关于和&lt;?&gt;"></a>关于<t>和&lt;?&gt;</t></h3><p>Class<t>在实例化的时候，T要替换成具体类。</t></p>
+</blockquote>
+<p>Class&lt;?&gt;时个通配泛型，？可以带便任何类型，主要用于声明时的限制情况。</p>
+<p>我觉得<t>和&lt;?&gt;还有更多值得思考的地方，比如我之前一直在想的一个问题，T泛型其实本来就可以代表任意类型（任意基本数据类型的包装类）了，只是在实例化的时候替换成具体类，那么？通配符与之相比就作用来说又有什么区别呢？</t></p>
+<p>由于编者水平有限…待更加深入学习后再做解释。</p>
+<p><strong>CSND博客地址：<a href="https://blog.csdn.net/qq_37094660/article/details/80437045" target="_blank" rel="noopener">https://blog.csdn.net/qq_37094660/article/details/80437045</a></strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/loser/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -658,7 +820,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
